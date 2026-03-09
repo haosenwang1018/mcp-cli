@@ -31,6 +31,7 @@ curl -fsSL https://raw.githubusercontent.com/philschmid/mcp-cli/main/install.sh 
 > The installer also retries download requests and verifies checksums when entries are available in release assets.
 > Download requests use retry + connect-timeout defaults to reduce transient network failures.
 > If a selected asset has no checksum entry, the installer prints a warning and the checksum source URL for troubleshooting.
+> When checksum verification succeeds, the installer also prints the checksum source URL for traceability.
 > If `checksums.txt` cannot be downloaded, the installer also warns and continues without checksum verification.
 > On successful asset resolution, the installer prints the selected binary name so you can confirm which artifact was used.
 > The installer also prints the resolved download URL for the selected binary.
