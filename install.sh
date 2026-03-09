@@ -169,6 +169,7 @@ if curl --retry 3 --connect-timeout 10 -fsSL "$CHECKSUM_URL" -o "$TMP_CHECKSUM" 
         fi
     else
         echo -e "${YELLOW}Warning: No checksum entry found for $BINARY; skipping verification.${NC}"
+        echo "Checksum source: $CHECKSUM_URL"
     fi
 fi
 
