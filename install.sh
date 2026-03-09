@@ -160,6 +160,7 @@ if [ -z "$BINARY" ]; then
 fi
 
 echo -e "${GREEN}✓${NC} Selected binary: $BINARY"
+echo "Download URL: $DOWNLOAD_URL"
 
 # Verify checksum (if available)
 TMP_CHECKSUM=$(mktemp)
