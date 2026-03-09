@@ -183,7 +183,12 @@ chmod +x "$TMP_FILE"
 # Create install directory if needed
 if [ ! -d "$INSTALL_DIR" ]; then
     echo -e "${BLUE}Creating $INSTALL_DIR...${NC}"
-    mkdir -p "$INSTALL_DIR"
+    if [ -w "$(dirname "$INSTALL_DIR")" ]; then
+        mkdir -p "$INSTALL_DIR"
+    else
+        echo -e "${YELLOW}Requires sudo to create $INSTALL_DIR${NC}"
+        sudo mkdir -p "$INSTALL_DIR"
+    fi
 fi
 
 # Install
