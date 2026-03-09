@@ -31,6 +31,7 @@ curl -fsSL https://raw.githubusercontent.com/philschmid/mcp-cli/main/install.sh 
 > Common architecture aliases (for example `arm64`/`aarch64`, `x64`/`amd64`) are handled automatically by the installer.
 > You can override the install target with `INSTALL_DIR=/custom/path` before running the script.
 > The installer requires `curl` to download release assets.
+> If you prefer manual installation, download a release binary from GitHub Releases and place it on your `PATH` as `mcp-cli`.
 
 or 
 
