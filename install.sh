@@ -54,6 +54,22 @@ case "$OS" in
         ;;
 esac
 
+# Local build fallback command/output by platform
+case "$OS" in
+    linux)
+        BUILD_CMD="bun run build:linux-arm"
+        BUILD_OUTPUT="dist/mcp-cli-linux-arm64"
+        ;;
+    darwin)
+        BUILD_CMD="bun run build:macos-arm"
+        BUILD_OUTPUT="dist/mcp-cli-darwin-arm64"
+        ;;
+    *)
+        BUILD_CMD="bun run build"
+        BUILD_OUTPUT="dist/mcp-cli"
+        ;;
+esac
+
 # Installation directory - prefer ~/.local/bin (no sudo needed)
 if [ -z "${INSTALL_DIR:-}" ]; then
     if [ -w "/usr/local/bin" ]; then
@@ -114,8 +130,8 @@ if [ -z "$BINARY" ]; then
     echo "  git clone https://github.com/$GITHUB_REPO.git"
     echo "  cd mcp-cli"
     echo "  bun install"
-    echo "  bun run build:linux-arm"
-    echo "  cp dist/mcp-cli-linux-arm64 "$INSTALL_DIR/mcp-cli""
+    echo "  $BUILD_CMD"
+    echo "  cp $BUILD_OUTPUT "$INSTALL_DIR/mcp-cli""
     exit 1
 fi
 
