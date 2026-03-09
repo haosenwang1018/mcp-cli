@@ -238,4 +238,5 @@ fi
 
 echo "Get started:"
 echo "  mcp-cli --help"
+echo "  mcp-cli --version"
 echo ""
