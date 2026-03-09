@@ -127,6 +127,9 @@ if [ -z "$BINARY" ]; then
     echo "Release page: https://github.com/$GITHUB_REPO/releases"
     echo ""
     echo "Workaround (build locally with Bun):"
+    if ! command -v bun &> /dev/null; then
+        echo "  # Bun is not installed. Install it first: https://bun.sh"
+    fi
     echo "  git clone https://github.com/$GITHUB_REPO.git"
     echo "  cd mcp-cli"
     echo "  bun install"
