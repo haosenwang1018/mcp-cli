@@ -205,6 +205,7 @@ TMP_FILE=""  # Clear so cleanup doesn't try to delete
 # Success message
 echo ""
 echo -e "${GREEN}✓ mcp-cli installed successfully!${NC}"
+echo "Installed to: $INSTALL_DIR/mcp-cli"
 echo ""
 
 # Check if in PATH and show version
