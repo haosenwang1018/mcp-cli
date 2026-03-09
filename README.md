@@ -47,6 +47,7 @@ curl -fsSL https://raw.githubusercontent.com/philschmid/mcp-cli/main/install.sh 
 > Fallback command examples quote install paths to avoid issues with spaces in directory names.
 > You can override the install target with `INSTALL_DIR=/custom/path` before running the script.
 > The installer requires `curl` to download release assets.
+> If `curl` is missing, the installer prints OS-specific install hints (for example Homebrew on macOS).
 > If you prefer manual installation, download a release binary from GitHub Releases and place it on your `PATH` as `mcp-cli`.
 > After manual download, ensure the binary is executable (for example: `chmod +x mcp-cli`).
 
