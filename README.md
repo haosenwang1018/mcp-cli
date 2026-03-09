@@ -34,6 +34,7 @@ curl -fsSL https://raw.githubusercontent.com/philschmid/mcp-cli/main/install.sh 
 > If `checksums.txt` cannot be downloaded, the installer also warns and continues without checksum verification.
 > On successful asset resolution, the installer prints the selected binary name so you can confirm which artifact was used.
 > When multiple compatible assets are possible, the installer prints the candidate list before attempting downloads.
+> Candidate-list output appears only when more than one compatible asset is available for your platform/architecture.
 > On successful installation, the script also prints the final install path (for example `/usr/local/bin/mcp-cli`).
 > The install banner includes the GitHub Releases source URL used for binary download.
 > After installation, run `mcp-cli --version` to verify the installed binary is on your `PATH`.
