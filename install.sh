@@ -26,6 +26,15 @@ cleanup() {
 }
 trap cleanup EXIT
 
+
+require_sudo() {
+    if ! command -v sudo &> /dev/null; then
+        echo -e "${RED}sudo is required for writing to $INSTALL_DIR but is not installed.${NC}"
+        echo "Set INSTALL_DIR to a writable path (e.g. INSTALL_DIR=$HOME/.local/bin) and retry."
+        exit 1
+    fi
+}
+
 # Detect OS and architecture
 OS=$(uname -s | tr '[:upper:]' '[:lower:]')
 ARCH=$(uname -m)
@@ -188,6 +197,7 @@ if [ ! -d "$INSTALL_DIR" ]; then
         mkdir -p "$INSTALL_DIR"
     else
         echo -e "${YELLOW}Requires sudo to create $INSTALL_DIR${NC}"
+        require_sudo
         sudo mkdir -p "$INSTALL_DIR"
     fi
 fi
@@ -198,6 +208,7 @@ if [ -w "$INSTALL_DIR" ]; then
     mv "$TMP_FILE" "$INSTALL_DIR/mcp-cli"
 else
     echo -e "${YELLOW}Requires sudo to install to $INSTALL_DIR${NC}"
+    require_sudo
     sudo mv "$TMP_FILE" "$INSTALL_DIR/mcp-cli"
 fi
 TMP_FILE=""  # Clear so cleanup doesn't try to delete
