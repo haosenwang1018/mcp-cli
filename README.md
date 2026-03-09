@@ -30,6 +30,7 @@ curl -fsSL https://raw.githubusercontent.com/philschmid/mcp-cli/main/install.sh 
 > In environments without `sudo`, set `INSTALL_DIR` to a writable directory (for example `$HOME/.local/bin`).
 > The installer also retries download requests and verifies checksums when entries are available in release assets.
 > If a selected asset has no checksum entry, the installer prints a warning and the checksum source URL for troubleshooting.
+> If `checksums.txt` cannot be downloaded, the installer also warns and continues without checksum verification.
 > On successful asset resolution, the installer prints the selected binary name so you can confirm which artifact was used.
 > On successful installation, the script also prints the final install path (for example `/usr/local/bin/mcp-cli`).
 > The install banner includes the GitHub Releases source URL used for binary download.
