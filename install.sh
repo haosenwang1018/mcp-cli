@@ -120,6 +120,10 @@ fi
 
 # Download binary (with architecture fallback candidates)
 echo -e "${BLUE}Downloading release assets from GitHub...${NC}"
+if [ ${#BINARY_CANDIDATES[@]} -gt 1 ]; then
+    echo "Candidate binaries: ${BINARY_CANDIDATES[*]}"
+fi
+
 TMP_FILE=$(mktemp)
 BINARY=""
 for candidate in "${BINARY_CANDIDATES[@]}"; do
