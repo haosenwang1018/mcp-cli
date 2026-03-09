@@ -150,6 +150,7 @@ if [ -z "$BINARY" ]; then
     else
         echo "  sudo cp $BUILD_OUTPUT "$INSTALL_DIR/mcp-cli""
     fi
+    echo "  export PATH="$INSTALL_DIR:\$PATH""
     exit 1
 fi
 
