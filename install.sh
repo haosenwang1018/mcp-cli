@@ -115,7 +115,7 @@ if [ -z "$BINARY" ]; then
     echo "  cd mcp-cli"
     echo "  bun install"
     echo "  bun run build:linux-arm"
-    echo "  cp dist/mcp-cli-linux-arm64 ~/.local/bin/mcp-cli"
+    echo "  cp dist/mcp-cli-linux-arm64 "$INSTALL_DIR/mcp-cli""
     exit 1
 fi
 
