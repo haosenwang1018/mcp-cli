@@ -116,7 +116,7 @@ fi
 TMP_CHECKSUM=$(mktemp)
 if curl -fsSL "$CHECKSUM_URL" -o "$TMP_CHECKSUM" 2>/dev/null; then
     # Extract checksum for our binary
-    EXPECTED_CHECKSUM=$(grep "$BINARY" "$TMP_CHECKSUM" | awk '{print $1}')
+    EXPECTED_CHECKSUM=$(awk -v binary="$BINARY" '$2 == binary { print $1 }' "$TMP_CHECKSUM")
     if [ -n "$EXPECTED_CHECKSUM" ]; then
         echo -e "${BLUE}Verifying checksum...${NC}"
         # Calculate actual checksum
