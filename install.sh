@@ -86,7 +86,7 @@ echo ""
 echo -e "${BOLD}Installing mcp-cli${NC}"
 echo ""
 echo -e "  ${BOLD}Platform${NC}:  $OS/$ARCH"
-echo -e "  ${BOLD}Binary${NC}:    ${BINARY_CANDIDATES[0]}"
+echo -e "  ${BOLD}Binary${NC}:    auto (${BINARY_CANDIDATES[*]})"
 echo -e "  ${BOLD}Location${NC}:  $INSTALL_DIR/mcp-cli"
 echo ""
 
