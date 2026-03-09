@@ -32,6 +32,7 @@ curl -fsSL https://raw.githubusercontent.com/philschmid/mcp-cli/main/install.sh 
 > If a selected asset has no checksum entry, the installer prints a warning and the checksum source URL for troubleshooting.
 > On successful asset resolution, the installer prints the selected binary name so you can confirm which artifact was used.
 > On successful installation, the script also prints the final install path (for example `/usr/local/bin/mcp-cli`).
+> The install banner includes the GitHub Releases source URL used for binary download.
 > After installation, run `mcp-cli --version` to verify the installed binary is on your `PATH`.
 > If the command is not found after install, add your install directory to `PATH` or start a new shell session.
 > Common architecture aliases (for example `arm64`/`aarch64`, `x64`/`amd64`) are handled automatically by the installer.
