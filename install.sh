@@ -109,7 +109,7 @@ if ! command -v curl &> /dev/null; then
 fi
 
 # Download binary (with architecture fallback candidates)
-echo -e "${BLUE}Downloading...${NC}"
+echo -e "${BLUE}Downloading release assets from GitHub...${NC}"
 TMP_FILE=$(mktemp)
 BINARY=""
 for candidate in "${BINARY_CANDIDATES[@]}"; do
