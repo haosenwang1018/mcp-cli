@@ -1,6 +1,7 @@
 #!/bin/bash
 # Install script for mcp-cli
 # Usage: curl -fsSL https://raw.githubusercontent.com/philschmid/mcp-cli/main/install.sh | bash
+# Optional: set INSTALL_DIR to override the target install directory
 
 set -e
 
