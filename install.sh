@@ -119,7 +119,7 @@ if ! command -v curl &> /dev/null; then
             echo "Install hint: brew install curl"
             ;;
         linux)
-            echo "Install hint: apt/yum/apk install curl (depending on your distro)"
+            echo "Install hint: use your distro package manager (e.g. apt, dnf/yum, pacman, apk) to install curl"
             ;;
     esac
     echo "Please install curl and retry."
