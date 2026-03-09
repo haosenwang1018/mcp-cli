@@ -97,7 +97,7 @@ TMP_FILE=$(mktemp)
 BINARY=""
 for candidate in "${BINARY_CANDIDATES[@]}"; do
     DOWNLOAD_URL="https://github.com/$GITHUB_REPO/releases/latest/download/$candidate"
-    if curl -fsSL "$DOWNLOAD_URL" -o "$TMP_FILE"; then
+    if curl --retry 3 --connect-timeout 10 -fsSL "$DOWNLOAD_URL" -o "$TMP_FILE"; then
         BINARY="$candidate"
         break
     fi
@@ -123,7 +123,7 @@ echo -e "${GREEN}✓${NC} Selected binary: $BINARY"
 
 # Verify checksum (if available)
 TMP_CHECKSUM=$(mktemp)
-if curl -fsSL "$CHECKSUM_URL" -o "$TMP_CHECKSUM" 2>/dev/null; then
+if curl --retry 3 --connect-timeout 10 -fsSL "$CHECKSUM_URL" -o "$TMP_CHECKSUM" 2>/dev/null; then
     # Extract checksum for our binary
     EXPECTED_CHECKSUM=$(awk -v binary="$BINARY" '$2 == binary { print $1 }' "$TMP_CHECKSUM")
     if [ -n "$EXPECTED_CHECKSUM" ]; then
