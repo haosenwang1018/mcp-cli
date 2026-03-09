@@ -251,3 +251,8 @@ echo "Get started:"
 echo "  mcp-cli --help"
 echo "  mcp-cli --version"
 echo ""
+if ! command -v mcp-cli &> /dev/null; then
+    echo -e "${YELLOW}Note:${NC} mcp-cli is not currently on PATH in this shell."
+    echo "Add $INSTALL_DIR to your PATH or open a new shell session."
+    echo ""
+fi
