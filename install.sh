@@ -112,6 +112,8 @@ if [ -z "$BINARY" ]; then
     exit 1
 fi
 
+echo -e "${GREEN}✓${NC} Selected binary: $BINARY"
+
 # Verify checksum (if available)
 TMP_CHECKSUM=$(mktemp)
 if curl -fsSL "$CHECKSUM_URL" -o "$TMP_CHECKSUM" 2>/dev/null; then
