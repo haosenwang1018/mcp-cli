@@ -98,6 +98,7 @@ echo ""
 echo -e "  ${BOLD}Platform${NC}:  $OS/$ARCH"
 echo -e "  ${BOLD}Binary${NC}:    auto (${BINARY_CANDIDATES[*]})"
 echo -e "  ${BOLD}Location${NC}:  $INSTALL_DIR/mcp-cli"
+echo -e "  ${BOLD}Source${NC}:    https://github.com/$GITHUB_REPO/releases/latest"
 echo ""
 
 # Check for existing installation
