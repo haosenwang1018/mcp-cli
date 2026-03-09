@@ -28,6 +28,7 @@ curl -fsSL https://raw.githubusercontent.com/philschmid/mcp-cli/main/install.sh 
 > The installer auto-detects platform/architecture and tries compatible release binaries in order. If no matching asset exists, it prints local build fallback steps.
 > If your target install directory is not writable (for example `/usr/local/bin`), fallback commands may require `sudo`.
 > The installer also retries download requests and verifies checksums when entries are available in release assets.
+> Common architecture aliases (for example `arm64`/`aarch64`, `x64`/`amd64`) are handled automatically by the installer.
 
 or 
 
