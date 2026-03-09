@@ -29,6 +29,7 @@ curl -fsSL https://raw.githubusercontent.com/philschmid/mcp-cli/main/install.sh 
 > If your target install directory is not writable (for example `/usr/local/bin`), fallback commands may require `sudo`.
 > In environments without `sudo`, set `INSTALL_DIR` to a writable directory (for example `$HOME/.local/bin`).
 > The installer also retries download requests and verifies checksums when entries are available in release assets.
+> Download requests use retry + connect-timeout defaults to reduce transient network failures.
 > If a selected asset has no checksum entry, the installer prints a warning and the checksum source URL for troubleshooting.
 > If `checksums.txt` cannot be downloaded, the installer also warns and continues without checksum verification.
 > On successful asset resolution, the installer prints the selected binary name so you can confirm which artifact was used.
