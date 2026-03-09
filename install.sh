@@ -84,6 +84,13 @@ fi
 # Get latest release URL
 CHECKSUM_URL="https://github.com/$GITHUB_REPO/releases/latest/download/checksums.txt"
 
+# Dependency check
+if ! command -v curl &> /dev/null; then
+    echo -e "${RED}curl is required but not installed.${NC}"
+    echo "Please install curl and retry."
+    exit 1
+fi
+
 # Download binary (with architecture fallback candidates)
 echo -e "${BLUE}Downloading...${NC}"
 TMP_FILE=$(mktemp)
