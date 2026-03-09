@@ -134,6 +134,7 @@ if [ -z "$BINARY" ]; then
     echo "  cd mcp-cli"
     echo "  bun install"
     echo "  $BUILD_CMD"
+    echo "  mkdir -p "$INSTALL_DIR""
     echo "  cp $BUILD_OUTPUT "$INSTALL_DIR/mcp-cli""
     exit 1
 fi
