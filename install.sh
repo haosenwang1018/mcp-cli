@@ -32,7 +32,7 @@ ARCH=$(uname -m)
 case "$OS" in
     linux)
         case "$ARCH" in
-            x86_64)
+            x86_64|amd64|x64)
                 BINARY_CANDIDATES=("mcp-cli-linux-x64")
                 ;;
             aarch64|arm64)
@@ -43,8 +43,8 @@ case "$OS" in
         ;;
     darwin)
         case "$ARCH" in
-            x86_64) BINARY_CANDIDATES=("mcp-cli-darwin-x64") ;;
-            arm64) BINARY_CANDIDATES=("mcp-cli-darwin-arm64") ;;
+            x86_64|amd64|x64) BINARY_CANDIDATES=("mcp-cli-darwin-x64") ;;
+            arm64|aarch64) BINARY_CANDIDATES=("mcp-cli-darwin-arm64") ;;
             *) echo -e "${RED}Unsupported architecture: $ARCH${NC}"; exit 1 ;;
         esac
         ;;
