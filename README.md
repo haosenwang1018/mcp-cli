@@ -36,6 +36,7 @@ curl -fsSL https://raw.githubusercontent.com/philschmid/mcp-cli/main/install.sh 
 > After installation, run `mcp-cli --version` to verify the installed binary is on your `PATH`.
 > If the command is not found after install, add your install directory to `PATH` or start a new shell session.
 > Common architecture aliases (for example `arm64`/`aarch64`, `x64`/`amd64`) are handled automatically by the installer.
+> Local build fallback guidance is platform-aware (for example Linux arm64 vs macOS arm64 build outputs).
 > You can override the install target with `INSTALL_DIR=/custom/path` before running the script.
 > The installer requires `curl` to download release assets.
 > If you prefer manual installation, download a release binary from GitHub Releases and place it on your `PATH` as `mcp-cli`.
