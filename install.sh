@@ -32,15 +32,19 @@ ARCH=$(uname -m)
 case "$OS" in
     linux)
         case "$ARCH" in
-            x86_64) BINARY="mcp-cli-linux-x64" ;;
-            aarch64) BINARY="mcp-cli-linux-arm64" ;;
+            x86_64)
+                BINARY_CANDIDATES=("mcp-cli-linux-x64")
+                ;;
+            aarch64|arm64)
+                BINARY_CANDIDATES=("mcp-cli-linux-arm64" "mcp-cli-linux-aarch64")
+                ;;
             *) echo -e "${RED}Unsupported architecture: $ARCH${NC}"; exit 1 ;;
         esac
         ;;
     darwin)
         case "$ARCH" in
-            x86_64) BINARY="mcp-cli-darwin-x64" ;;
-            arm64) BINARY="mcp-cli-darwin-arm64" ;;
+            x86_64) BINARY_CANDIDATES=("mcp-cli-darwin-x64") ;;
+            arm64) BINARY_CANDIDATES=("mcp-cli-darwin-arm64") ;;
             *) echo -e "${RED}Unsupported architecture: $ARCH${NC}"; exit 1 ;;
         esac
         ;;
@@ -66,7 +70,7 @@ echo ""
 echo -e "${BOLD}Installing mcp-cli${NC}"
 echo ""
 echo -e "  ${BOLD}Platform${NC}:  $OS/$ARCH"
-echo -e "  ${BOLD}Binary${NC}:    $BINARY"
+echo -e "  ${BOLD}Binary${NC}:    ${BINARY_CANDIDATES[0]}"
 echo -e "  ${BOLD}Location${NC}:  $INSTALL_DIR/mcp-cli"
 echo ""
 
@@ -78,15 +82,33 @@ if command -v mcp-cli &> /dev/null; then
 fi
 
 # Get latest release URL
-DOWNLOAD_URL="https://github.com/$GITHUB_REPO/releases/latest/download/$BINARY"
 CHECKSUM_URL="https://github.com/$GITHUB_REPO/releases/latest/download/checksums.txt"
 
-# Download binary
+# Download binary (with architecture fallback candidates)
 echo -e "${BLUE}Downloading...${NC}"
 TMP_FILE=$(mktemp)
-if ! curl -fsSL "$DOWNLOAD_URL" -o "$TMP_FILE"; then
-    echo -e "${RED}Failed to download binary. Check if releases exist at:${NC}"
-    echo "  https://github.com/$GITHUB_REPO/releases"
+BINARY=""
+for candidate in "${BINARY_CANDIDATES[@]}"; do
+    DOWNLOAD_URL="https://github.com/$GITHUB_REPO/releases/latest/download/$candidate"
+    if curl -fsSL "$DOWNLOAD_URL" -o "$TMP_FILE"; then
+        BINARY="$candidate"
+        break
+    fi
+done
+
+if [ -z "$BINARY" ]; then
+    echo -e "${RED}Failed to download a binary for $OS/$ARCH.${NC}"
+    echo "Checked candidates: ${BINARY_CANDIDATES[*]}"
+    echo ""
+    echo "The latest release may not include this architecture yet."
+    echo "Release page: https://github.com/$GITHUB_REPO/releases"
+    echo ""
+    echo "Workaround (build locally with Bun):"
+    echo "  git clone https://github.com/$GITHUB_REPO.git"
+    echo "  cd mcp-cli"
+    echo "  bun install"
+    echo "  bun run build:linux-arm"
+    echo "  cp dist/mcp-cli-linux-arm64 ~/.local/bin/mcp-cli"
     exit 1
 fi
 
