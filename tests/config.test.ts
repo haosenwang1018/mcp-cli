@@ -204,6 +204,19 @@ describe('config', () => {
       const config = await loadConfig(configPath);
       expect(() => getServerConfig(config, 'unknown')).toThrow('not found');
     });
+
+    test('throws not found for empty configured servers', async () => {
+      const configPath = join(tempDir, 'empty_servers_for_lookup.json');
+      await writeFile(
+        configPath,
+        JSON.stringify({
+          mcpServers: {},
+        })
+      );
+
+      const config = await loadConfig(configPath);
+      expect(() => getServerConfig(config, 'anything')).toThrow('not found');
+    });
   });
 
   describe('listServerNames', () => {
