@@ -471,12 +471,18 @@ function validateAndProcessConfig(config: McpServersConfig): McpServersConfig {
   return substituteEnvVarsInObject(config);
 }
 
+export interface LoadConfigOptions {
+  adHocServer?: { name: string; config: ServerConfig };
+}
+
 /**
  * Load and parse MCP servers configuration
  * Merges multiple config files if found (later files override earlier ones)
+ * Optionally adds an ad-hoc server configuration
  */
 export async function loadConfig(
   explicitPath?: string,
+  options?: LoadConfigOptions,
 ): Promise<McpServersConfig> {
   let configPath: string | undefined;
 
@@ -513,6 +519,12 @@ export async function loadConfig(
 
     // Validate individual server configs and substitute env vars
     config = validateAndProcessConfig(config);
+
+    // Add ad-hoc server if provided
+    if (options?.adHocServer) {
+      config.mcpServers[options.adHocServer.name] = options.adHocServer.config;
+    }
+
     return config;
   }
 
@@ -553,6 +565,11 @@ export async function loadConfig(
 
   // Validate and process the merged config
   config = validateAndProcessConfig(config);
+
+  // Add ad-hoc server if provided (adhoc takes precedence over config file)
+  if (options?.adHocServer) {
+    config.mcpServers[options.adHocServer.name] = options.adHocServer.config;
+  }
 
   return config;
 }
