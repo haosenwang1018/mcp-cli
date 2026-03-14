@@ -12,6 +12,7 @@ import {
   listServerNames,
   isHttpServer,
   isStdioServer,
+  getConfigHash,
 } from '../src/config';
 
 describe('config', () => {
@@ -255,6 +256,28 @@ describe('config', () => {
     test('isStdioServer identifies stdio config', () => {
       expect(isStdioServer({ command: 'echo' })).toBe(true);
       expect(isStdioServer({ url: 'https://example.com' })).toBe(false);
+    });
+  });
+
+  describe('getConfigHash', () => {
+    test('returns the same hash for nested objects with different key order', () => {
+      const first = getConfigHash({
+        url: 'https://example.com',
+        headers: {
+          Authorization: 'Bearer token',
+          'X-Trace-Id': 'abc',
+        },
+      });
+
+      const second = getConfigHash({
+        headers: {
+          'X-Trace-Id': 'abc',
+          Authorization: 'Bearer token',
+        },
+        url: 'https://example.com',
+      });
+
+      expect(first).toBe(second);
     });
   });
 });
