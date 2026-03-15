@@ -245,6 +245,19 @@ describe('config', () => {
       expect(names).toContain('gamma');
       expect(names.length).toBe(3);
     });
+
+    test('returns an empty array when no servers are configured', async () => {
+      const configPath = join(tempDir, 'empty_config.json');
+      await writeFile(
+        configPath,
+        JSON.stringify({
+          mcpServers: {},
+        })
+      );
+
+      const config = await loadConfig(configPath);
+      expect(listServerNames(config)).toEqual([]);
+    });
   });
 
   describe('type guards', () => {
