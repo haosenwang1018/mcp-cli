@@ -193,6 +193,23 @@ describe('config', () => {
       await expect(loadConfig(configPath)).rejects.toThrow('HTTP-only fields');
     });
 
+    test('throws error on stdio server config with timeout and command', async () => {
+      const configPath = join(tempDir, 'command_and_timeout.json');
+      await writeFile(
+        configPath,
+        JSON.stringify({
+          mcpServers: {
+            mixed: {
+              command: 'echo',
+              timeout: 30,
+            },
+          },
+        })
+      );
+
+      await expect(loadConfig(configPath)).rejects.toThrow('HTTP-only fields');
+    });
+
     test('throws error on null server config', async () => {
       const configPath = join(tempDir, 'null_server.json');
       await writeFile(
