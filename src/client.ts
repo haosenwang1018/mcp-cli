@@ -243,15 +243,12 @@ export async function connectToServer(
     } else {
       transport = createStdioTransport(config);
 
-      // Capture stderr for debugging - attach BEFORE connect
-      // Always stream stderr immediately so auth prompts are visible
+      // Capture stderr before connect so failed startups can surface
+      // helpful diagnostics without streaming server noise by default.
       const stderrStream = transport.stderr;
       if (stderrStream) {
         stderrStream.on('data', (chunk: Buffer) => {
-          const text = chunk.toString();
-          stderrChunks.push(text);
-          // Always stream stderr immediately so users can see auth prompts
-          process.stderr.write(`[${serverName}] ${text}`);
+          stderrChunks.push(chunk.toString());
         });
       }
     }
@@ -266,16 +263,6 @@ export async function connectToServer(
         err.message = `${err.message}\n\nServer stderr:\n${stderrOutput}`;
       }
       throw error;
-    }
-
-    // For successful connections, forward stderr to console
-    if (!isHttpServer(config)) {
-      const stderrStream = (transport as StdioClientTransport).stderr;
-      if (stderrStream) {
-        stderrStream.on('data', (chunk: Buffer) => {
-          process.stderr.write(chunk);
-        });
-      }
     }
 
     return {
