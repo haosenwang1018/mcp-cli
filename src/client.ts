@@ -315,16 +315,26 @@ function createStdioTransport(config: StdioServerConfig): StdioClientTransport {
 }
 
 /**
- * List all tools from a connected client with retry logic
+ * List all tools from a connected client with retry logic and pagination support
  */
 export async function listTools(client: Client): Promise<ToolInfo[]> {
   return withRetry(async () => {
-    const result = await client.listTools();
-    return result.tools.map((tool: Tool) => ({
-      name: tool.name,
-      description: tool.description,
-      inputSchema: tool.inputSchema as Record<string, unknown>,
-    }));
+    const allTools: ToolInfo[] = [];
+    let cursor: string | undefined;
+
+    do {
+      const result = await client.listTools(cursor ? { cursor } : undefined);
+      allTools.push(
+        ...result.tools.map((tool: Tool) => ({
+          name: tool.name,
+          description: tool.description,
+          inputSchema: tool.inputSchema as Record<string, unknown>,
+        })),
+      );
+      cursor = result.nextCursor as string | undefined;
+    } while (cursor);
+
+    return allTools;
   }, 'list tools');
 }
 
