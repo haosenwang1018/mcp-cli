@@ -341,8 +341,8 @@ Restrict which tools are available from a server using `allowedTools` and `disab
 
 The CLI searches for configuration in this order:
 
-1. `MCP_CONFIG_PATH` environment variable
-2. `-c/--config` command line argument
+1. `-c/--config` command line argument
+2. `MCP_CONFIG_PATH` environment variable
 3. `./mcp_servers.json` (current directory)
 4. `~/.mcp_servers.json`
 5. `~/.config/mcp/mcp_servers.json`
