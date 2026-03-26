@@ -132,11 +132,6 @@ export async function callCommand(options: CallOptions): Promise<void> {
      process.exit(ErrorCode.CLIENT_ERROR);
    }
 
-  try {
-    console.error((error as Error).message);
-    process.exit(ErrorCode.CLIENT_ERROR);
-  }
-
   let serverConfig: ServerConfig;
   try {
     serverConfig = getServerConfig(config, serverName);
