@@ -318,8 +318,19 @@ function createStdioTransport(config: StdioServerConfig): StdioClientTransport {
  */
 export async function listTools(client: Client): Promise<ToolInfo[]> {
   return withRetry(async () => {
-    const result = await client.listTools();
-    return result.tools.map((tool: Tool) => ({
+    const allTools: Tool[] = [];
+    let cursor: string | undefined;
+
+    do {
+      const result = await client.listTools(
+        cursor ? { cursor } : undefined,
+        { timeout: getTimeoutMs() },
+      );
+      allTools.push(...result.tools);
+      cursor = result.nextCursor;
+    } while (cursor);
+
+    return allTools.map((tool: Tool) => ({
       name: tool.name,
       description: tool.description,
       inputSchema: tool.inputSchema as Record<string, unknown>,
