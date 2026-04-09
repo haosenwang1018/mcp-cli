@@ -74,8 +74,7 @@ async function sendRequest(
         },
         data(socket, data) {
           buffer += data.toString();
-          const newlineIndex = buffer.indexOf('
-');
+          const newlineIndex = buffer.indexOf('\n');
           if (newlineIndex === -1) {
             return;
           }
