@@ -6,6 +6,7 @@ import { describe, test, expect } from 'bun:test';
 import {
   formatServerList,
   formatSearchResults,
+  formatServerDetails,
   formatToolSchema,
   formatToolResult,
   formatJson,
@@ -98,6 +99,35 @@ describe('output', () => {
 
       const withoutDesc = formatSearchResults(results, false);
       expect(withoutDesc).toContain('Tool description');
+    });
+  });
+
+
+  describe('formatServerDetails', () => {
+    test('hides stdio args to avoid leaking secrets', () => {
+      const output = formatServerDetails(
+        'secrets',
+        {
+          command: '/usr/local/bin/node',
+          args: ['server.js', '--api-key', 'super-secret-value'],
+        },
+        [],
+      );
+
+      expect(output).toContain('Command: node (3 args hidden)');
+      expect(output).not.toContain('super-secret-value');
+      expect(output).not.toContain('--api-key');
+      expect(output).not.toContain('/usr/local/bin/node');
+    });
+
+    test('shows stdio command basename when there are no args', () => {
+      const output = formatServerDetails(
+        'simple',
+        { command: '/opt/mcp/server' },
+        [],
+      );
+
+      expect(output).toContain('Command: server');
     });
   });
 
