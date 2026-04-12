@@ -120,6 +120,22 @@ describe('output', () => {
       expect(output).not.toContain('/usr/local/bin/node');
     });
 
+    test('redacts credentials and secret query params in http urls', () => {
+      const output = formatServerDetails(
+        'remote',
+        {
+          url: 'https://alice:super-secret@example.com/mcp?api_key=top-secret&token=abc123&safe=yes',
+        },
+        [],
+      );
+
+      expect(output).toContain('URL: https://***:***@example.com/mcp?api_key=***&token=***&safe=yes');
+      expect(output).not.toContain('alice');
+      expect(output).not.toContain('super-secret');
+      expect(output).not.toContain('top-secret');
+      expect(output).not.toContain('abc123');
+    });
+
     test('shows stdio command basename when there are no args', () => {
       const output = formatServerDetails(
         'simple',
